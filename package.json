@@ -1,11 +1,12 @@
 {
   "name": "js-web-crawler",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000n\u0000o\u0000d\u0000e\u0000-\u0000j\u0000s\u0000-\u0000w\u0000e\u0000b\u0000-\u0000c\u0000r\u0000a\u0000w\u0000l\u0000e\u0000r\u0000\r\u0000 \u0000",
+  "description": "A simple Node.js web crawler",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node main.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
