@@ -1,4 +1,30 @@
 import { JSDOM } from "jsdom";
+
+export async function crawlPage(currentURL) {
+  console.log(`Actively crawling: ${currentURL}`);
+  try {
+    const resp = await fetch(currentURL);
+    if (resp.status > 399) {
+      console.log(
+        `Error in fetch: responsed with status code of ${resp.status}, on page: ${currentURL}`
+      );
+      return;
+    }
+
+    const contentType = resp.headers.get("content-type");
+    if (!contentType.includes("text/html")) {
+      console.log(
+        `Error in fetch: responsed with a content-type of ${contentType}, on page: ${currentURL}`
+      );
+      return;
+    }
+
+    console.log(await resp.text());
+  } catch (error) {
+    console.log(`Error in fetch: ${error.message}, on page: ${currentURL}`);
+  }
+}
+
 export function getURLsfromHTML(htmlBody, baseURL) {
   const urls = [];
   const dom = new JSDOM(htmlBody);
