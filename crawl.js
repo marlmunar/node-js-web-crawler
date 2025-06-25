@@ -5,10 +5,20 @@ export function getURLsfromHTML(htmlBody, baseURL) {
   const linkElements = dom.window.document.querySelectorAll("a");
   for (const linkElement of linkElements) {
     if (linkElement.href.slice(0, 1) === "/") {
-      urls.push(`${baseURL}${linkElement.href}`);
-      break;
+      try {
+        const urlObj = new URL(`${baseURL}${linkElement.href}`);
+        urls.push(urlObj.href);
+        break;
+      } catch (error) {
+        console.log(`Error with relative URL: ${error.message}`);
+      }
     }
-    urls.push(linkElement.href);
+    try {
+      const urlObj = new URL(linkElement.href);
+      urls.push(urlObj.href);
+    } catch (error) {
+      console.log(`Error with absolute URL: ${error.message}`);
+    }
   }
 
   return urls;
